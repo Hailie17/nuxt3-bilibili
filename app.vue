@@ -1,7 +1,4 @@
 <template>
-  <!--Nuxt基于文件的路由系统-->
-  <NuxtLink to="/">首页</NuxtLink>
-  <NuxtLink to="/video">视频页</NuxtLink>
   <!--页面路由 相当于RouterView-->
   <NuxtPage />
 </template>
@@ -13,10 +10,10 @@ useSeoMeta({
   keywords:'sy,乐不思蜀，yzz，乐子人',
 })
 </script>
-<style>
-// 基础样式
+<style lang="scss">
+/*设置样式*/
 @import './assets/styles/base.scss';
-// 字体图标
+/*字体图标*/
 @import './assets/styles/iconfont.scss';
 /*设置主题色*/
 :root{

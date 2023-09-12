@@ -4,5 +4,7 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
   modules: ['@vant/nuxt'],
-
+  head: {
+    meta: { name: 'referrer', content: 'no-referrer' },
+  },
 })

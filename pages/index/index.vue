@@ -14,33 +14,60 @@
   </header>
   <!--  频道模块 -->
   <van-tabs>
-    <van-tab v-for="item in 10" :key="item" title="频道" />
+    <van-tab v-for="item in channelList" :key="item.id" :title="item.name" />
   </van-tabs>
   <!--  视频列表-->
-  <div class="video-list">
-    <NuxtLink :to="`/video/0`" class="van-card" v-for="item in 20" :key="item">
-      <div class="card">
-        <div class="card-img">
-          <img class="pic" src="@/assets/images/loading.png" alt="都说了不看怎么就我一个不看" />
-        </div>
-        <div class="count">
+  <van-list v-model:loading="loading" v-model:error="error" error-text="请求失败，点击重新加载" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <div class="video-list">
+      <NuxtLink :to="`/video/0`" class="van-card" v-for="item in list" :key="item.aid">
+        <div class="card">
+          <div class="card-img">
+            <img class="pic" :src="`https://images.weserv.nl/?url=${item.pic}`" :alt="item.name" />
+          </div>
+          <div class="count">
           <span>
             <i class="iconfont icon_shipin_bofangshu"></i>
-            676.2万
+            {{ item.stat.view }}
           </span>
-          <span>
+            <span>
             <i class="iconfont icon_shipin_danmushu"></i>
-            1.6万
+             {{ item.stat.danmaku }}
           </span>
+          </div>
         </div>
-      </div>
-      <p class="title">都说了不看怎么就我一个不看</p>
-    </NuxtLink>
-  </div>
+        <p class="title">{{ item.title }}</p>
+      </NuxtLink>
+    </div>
+  </van-list>
+
 </template>
 
 <script setup>
+const { data:channelList } = useFetch('/api/channel')
+const { data:videoList } = useFetch('/api/video')
 
+const list = ref([]);
+const error = ref(false);
+const loading = ref(false);
+// 页码
+let page = 1
+let pageSize = 10
+
+let finished = ref(false)
+// 触底触发
+const onLoad = () => {
+  // 正在加载
+  loading.value = false
+  // 根据页码提取数据
+  const data = videoList.value?.slice((page - 1) * pageSize, page * pageSize);
+  list.value.push(...data)
+  //页码累加
+  page++
+  // 加载结束
+  if (videoList.value?.length === list.value?.length){
+    finished.value = true
+  }
+};
 </script>
 
 <style lang="scss">
