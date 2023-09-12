@@ -17,9 +17,9 @@
     <van-tab v-for="item in channelList" :key="item.id" :title="item.name" />
   </van-tabs>
   <!--  视频列表-->
-  <van-list v-model:loading="loading" v-model:error="error" error-text="请求失败，点击重新加载" :finished="finished" finished-text="没有更多了" @load="onLoad">
+  <van-list v-model:loading="loading" v-model:error="error" error-text="请求失败，点击重新加载" :finished="finished" finished-text="去 bilibili APP 查看更多" @load="onLoad">
     <div class="video-list">
-      <NuxtLink :to="`/video/0`" class="van-card" v-for="item in list" :key="item.aid">
+      <NuxtLink :to="`/video/${item.bvid}`" class="van-card" v-for="item in list" :key="item.aid">
         <div class="card">
           <div class="card-img">
             <img class="pic" :src="`https://images.weserv.nl/?url=${item.pic}`" :alt="item.name" />
@@ -43,17 +43,18 @@
 </template>
 
 <script setup>
+
 const { data:channelList } = useFetch('/api/channel')
 const { data:videoList } = useFetch('/api/video')
 
 const list = ref([]);
 const error = ref(false);
 const loading = ref(false);
+const finished = ref(false)
 // 页码
 let page = 1
 let pageSize = 10
 
-let finished = ref(false)
 // 触底触发
 const onLoad = () => {
   // 正在加载
@@ -68,6 +69,7 @@ const onLoad = () => {
     finished.value = true
   }
 };
+
 </script>
 
 <style lang="scss">
