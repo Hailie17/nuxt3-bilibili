@@ -14,6 +14,10 @@ useSeoMeta({
 })
 </script>
 <style>
+// 基础样式
+@import './assets/styles/base.scss';
+// 字体图标
+@import './assets/styles/iconfont.scss';
 /*设置主题色*/
 :root{
   --van-primary-color: #fb7299 !important;
