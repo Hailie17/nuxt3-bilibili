@@ -13,3 +13,9 @@ useSeoMeta({
   keywords:'sy,乐不思蜀，yzz，乐子人',
 })
 </script>
+<style>
+/*设置主题色*/
+:root{
+  --van-primary-color: #fb7299 !important;
+}
+</style>

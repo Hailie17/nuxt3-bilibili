@@ -2,5 +2,7 @@
 export default defineNuxtConfig({
   //开启ssr服务端渲染，默认开启
   ssr: true,
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  modules: ['@vant/nuxt'],
+
 })
